@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Authentication files
+.auth/
+playwright/.auth/
+
+# Playwright reports
+test-results/
+playwright-report/
+
+# Logs
+*.log
