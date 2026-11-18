@@ -1,39 +1,30 @@
 # Phlebotex Smoke Suite
+## Smoke Test Coverage
 
-اختبارات سريعة (حوالي 10 دقايق) تتشغل أول ما يتنزل Build جديد على الـ Staging.
+Executed a Smoke Test covering the core Phlebotex Dashboard and mobile application workflows to verify build stability and essential functionality.
 
-## التشغيل لأول مرة
-```
-npm install
-npm run install-browsers
-copy .env.example .env      (على Mac/Linux: cp .env.example .env)
-```
-افتحي `.env` واملي `E2E_ADMIN_EMAIL` و `E2E_ADMIN_PASSWORD`. **الملف ده ما يترفعش ولا يتبعت لحد.**
+**Covered Areas:**
+- Admin Login, Logout, and authentication validation.
+- Dashboard navigation and main menu accessibility.
+- Patient listing, search, filters, and patient tags.
+- Patient Quick Registration and profile editing.
+- Request creation and Dispatch Panel functionality.
+- Specialist assignment and request status lifecycle.
+- VIP Alerts and acknowledgement workflow.
+- Pending App Requests (Cancel, Out of Coverage, Reschedule, Handover, and Convert).
+- Specialist Rosters, availability, and Slots.
+- User management, permissions, and Patient Tags assignment.
+- Payers, Contracts, and Services Index.
+- Patient App request creation and updates.
+- Specialist App visits and status updates.
+- Push notifications for admins and patients.
+- Invoice generation and payment validation.
+- Data export functionality.
 
-## كل مرة
-```
-npm run smoke           # تشغيل عادي
-npm run smoke:headed    # تشوفي المتصفح وهو شغال
-npm run smoke:ui        # واجهة تفاعلية للتشخيص
-npm run report          # تقرير HTML بعد التشغيل (فيه Screenshots وVideo للي فشل)
-```
-تشغيل ملف واحد: `npx playwright test tests/03-tags.smoke.spec.ts`
+**Additional Validation:**
+- Monitored Network requests for HTTP 4xx/5xx errors.
+- Checked browser Console for JavaScript runtime errors.
+- Verified Arabic/English language display and RTL/LTR layouts.
 
-## بيغطي إيه
-| الملف | الاختبار |
-|-------|----------|
-| auth.setup.ts | تسجيل الدخول مرة واحدة (بيحفظ الـ Session) |
-| 01-pages | 23 صفحة أساسية بتفتح من غير 5xx أو Crash |
-| 02-patients | Quick Registration، المريض يظهر في القايمة بالـ ID والتليفون، بعدين بيتمسح. وفورم Full Registration فيه Special Needs |
-| 03-tags | Dialog التاج فيه VIP Alert وVIP Data Masking. وAssign Patient Tags: Specific لازم تاج واحد على الأقل، وCancel ما بيغيّرش حاجة |
-| 04-dispatch | Dispatch Panel وفلاتره، وAdd New Request، وتابات App Requests |
-
-## مش مغطى (يدوي أو من مستودع المنتج)
-- دورة الطلب كاملة (إنشاء، Assign، الحالات): موجودة في `e2e/tests/requests/request-lifecycle.spec.ts` في مشروع الـ Dashboard وبتحتاج `E2E_ALLOW_MESSAGES=true`.
-- الـ VIP Alert، تطبيق المريض، تطبيق الأخصائي، الإشعارات، الـ Export، الـ Zones: يدوي.
-
-## قواعد مهمة
-- **متسجليش دخول جوه أي Test.** تسجيل الدخول بيقفل الـ Sessions التانية لنفس الحساب.
-- أي حاجة بتتعمل اسمها بيبدأ بـ `E2e-` وبتتمسح في آخر الـ Test.
-- لو Test فشل: افتحي `npm run report`، وشوفي الـ Trace قبل ما تفتحي Bug.
-# Smoke-Test-For-Homecare
+**Objective:**
+Verify critical business workflows and identify build-blocking issues before proceeding with detailed functional and regression testing.
